@@ -16,7 +16,7 @@ public class CarController {
     @Autowired
     private CarService carService;
 
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    @RequestMapping(value = "/carlist",method = RequestMethod.GET)
     public ResponseEntity<?> list(){
         List<Car> cars = carService.list();
         return new ResponseEntity<>(cars, HttpStatus.OK);
