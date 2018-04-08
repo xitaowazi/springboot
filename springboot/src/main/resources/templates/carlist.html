@@ -37,6 +37,45 @@
     </tr>
 </table>
 
+<h1>标准表达式语法</h1>
+<h3>变量表达式</h3>
+<span>变量表达式即OGNL表达式（对象导航语言）或Spring EL表达式（模型属性）</span>
+<!-- session 作用域 request 作用域 -->
+<p th:text="|session:${session.car.name} request:${car.name}|"></p>
+
+<h3>选择（星号）表达式</h3>
+<span th:text="*{car.name}"></span>
+<div th:object="${car}">
+    <span th:text="*{price}"></span><br>
+</div>
+
+<h3>url表达式</h3>
+<a href="/hithymeleaf">初始</a><br>
+<a href="/hithymeleaf?name=jack">带参数</a><br>
+<a href="/hithymeleaf?name=jack&price=120">多个参数</a><br>
+
+<a th:href="@{/hithymeleaf}">hello thymeleaf</a><br>
+<a th:href="@{/hithymeleaf(name=${car.name})}">thymeleaf 带参数</a><br>
+<a th:href="@{/hithymeleaf(name=${car.name},price=120)}">thymelleaf 多个参数</a><br>
+
+<h3>文字国际化表达式</h3>
+<p th:text="#{welcome}"></p>
+
+<li id="i18n">
+    <th:block th:if="${#locale.getCountry().equals('US')}">
+        <a th:attr="href='/carlist?locale=zh_CN'" th:text="#{lang_zh}"></a>
+    </th:block>
+
+    <th:block th:if="${#locale.getCountry().equals('CN')}">
+        <a th:attr="href='/carlist?locale=en_US'" th:text="#{lang_en}"></a>
+    </th:block>
+</li>
+
+<h1>布局</h1>
+<!-- footer：被包含的文件名，copy：碎片名 被包含文件中的 fragment 名 -->
+<div th:include="footer::copy"></div>
+
+
 
 </body>
 </html>

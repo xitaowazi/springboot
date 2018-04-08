@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Date;
 import java.util.List;
 
+@SessionAttributes(names = {"car"},types = {String.class})
 @Controller
 public class CarController {
     @Autowired
