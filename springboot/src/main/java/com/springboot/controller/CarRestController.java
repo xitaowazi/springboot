@@ -11,15 +11,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://127.0.0.1:8080",maxAge = 3600)
 @RequestMapping("/api")
 public class CarRestController {
     @Autowired
     private CarService carService;
 
     @RequestMapping(value = "/cars", method = RequestMethod.GET)
-    public ResponseEntity<?> getCars(){
-        List<Car> cars = carService.list();
-
+    public ResponseEntity<?> list(
+            @RequestParam(value = "name",required = false) String name,
+            @RequestParam(value = "price",required = false) Double price){
+        System.out.println("接收的值："+"name:"+name+""+"price:"+price);
+        List<Car> cars = carService.find(name, price);
         if(cars.isEmpty()){
             return new ResponseEntity<>(new CustomType(400,"没有东西"),HttpStatus.OK);
         }
@@ -38,7 +41,7 @@ public class CarRestController {
         return new ResponseEntity<>(car,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    @RequestMapping(value = "/cars",method = RequestMethod.POST)
     public ResponseEntity<?> add(@RequestBody Car car){
         int count = carService.add(car);
         CustomType customType = new CustomType(400,"新增失败");
@@ -50,7 +53,7 @@ public class CarRestController {
         return new ResponseEntity<>(customType,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "modify",method = RequestMethod.PUT)
+    @RequestMapping(value = "/cars",method = RequestMethod.PUT)
     public ResponseEntity<?> modify(@RequestBody Car car){
         int count = carService.modify(car);
         CustomType customType = new CustomType(400,"修改失败");
@@ -61,7 +64,7 @@ public class CarRestController {
         return new ResponseEntity<>(customType,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "delete/{id}",method =RequestMethod.DELETE)
+    @RequestMapping(value = "/cars/{id}",method =RequestMethod.DELETE)
     public ResponseEntity<?>remove(@PathVariable Integer id){
         int count = carService.remove(id);
         CustomType customType = new CustomType(400,"删除失败");

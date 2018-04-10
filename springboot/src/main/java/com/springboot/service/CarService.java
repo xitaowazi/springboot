@@ -26,6 +26,10 @@ public class CarService {
         return carMapper.findById(id);
     }
 
+    public List<Car> find(String name,Double price){
+        return carMapper.findByParam(name,price);
+    }
+
     @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,rollbackFor = Exception.class)
     public int add(Car car){
         return carMapper.add(car);
@@ -40,4 +44,6 @@ public class CarService {
     public int remove(Integer id){
         return carMapper.remove(id);
     }
+
+
 }

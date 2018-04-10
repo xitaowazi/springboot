@@ -1,5 +1,7 @@
 package com.springboot;
 
+import com.springboot.domain.Car;
+import com.springboot.service.CarService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -33,5 +37,12 @@ public class ApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
+
+	@Test
+    public void list(){
+        CarService carService = new CarService();
+        List<Car> cars = carService.list();
+        System.out.println(cars);
+    }
 
 }

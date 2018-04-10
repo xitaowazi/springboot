@@ -19,7 +19,10 @@ public interface CarMapper {
     @Select("select id,name,price,create_date createDate from car where id=#{id}")
     Car findById(Integer id);
 
-    @Insert("insert into toy(name,price,create_date)values(#{name},#{price},#{createDate}")
+    List<Car> findByParam(@Param("name") String name,@Param("price")Double price);
+
+
+    @Insert("insert into car(name,price,create_date)values(#{name},#{price},#{createDate})")
     int add(Car car);
 
     @Update("update car set name=#{name},price=#{price},create_date=#{createDate} where id=#{id}")
